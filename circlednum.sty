@@ -1,0 +1,23 @@
+%% This is file 'circlednum.sty'
+%%
+%% Developed by Xu Wang
+%% Copyright (C) 2021 by Xu Wang <cwangx@hotmail.com>
+%%
+%% It may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License (LPPL).
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{circlednum}[2021/05/01 v1.0 circled number for less than 1000]
+
+\RequirePackage{graphicx}
+\RequirePackage{xstring}
+
+\newcommand*{\circled}[1]{% 最大支持 999
+	\StrLen{#1}[\lengthfornumber]% %%计算 #1 的长度并将其赋值给 lengthforvector, 需要 xstring package
+	\ifcase\lengthfornumber% 从 0 开始考虑 lengthfornumber 的位数
+	\relax\or \textcircled{\footnotesize \raisebox{-0.08ex}{#1}}\or \textcircled{\scriptsize \raisebox{-0.08ex}{\scalebox{0.85}[1]{#1}}}\or \textcircled{\scriptsize \raisebox{-0.08ex}{\scalebox{0.6}[1]{#1}}}\else ???\@latex@warning{Only use not more than 1000 in \circled.}%
+	\fi} %%使用 graphicx 提供的 \scalebox 实现两位数字的横向压缩
+
+\endinput
+%%
+%% End of file 'circlednum.sty'
